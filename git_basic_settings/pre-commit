@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if [ -f .rubocop.yml ] && \
+   [ ! $(git ls-files -m | wc -l) = 0 ] && \
+   ! ( git ls-files -m | xargs bundle exec rubocop -RED )
+then
+  cat <<MSG
+
+Rubocop offences were found, the commit was aborted.
+If you really want to commit anyway run:
+  git commit --no-verify
+MSG
+  exit 1
+fi
+
+if [ -f .haml-lint.yml ] && \
+   [ ! $(git ls-files ./app -m | grep .haml | wc -l) = 0 ] && \
+   ! ( git ls-files ./app -m | grep .haml | xargs bundle exec haml-lint )
+then
+  cat <<MSG
+
+HAML-lint offences were found, the commit was aborted.
+If you really want to commit anyway run:
+  git commit --no-verify
+MSG
+  exit 1
+fi
+
+if [ -f .scss-lint.yml ] && \
+   [ ! $(git ls-files ./app -m | grep .scss | wc -l) = 0 ] && \
+   ! ( git ls-files ./app -m | grep .scss | xargs bundle exec scss-lint )
+then
+  cat <<MSG
+SCSS-lint offences were found, the commit was aborted.
+If you really want to commit anyway run:
+  git commit --no-verify
+MSG
+  exit 1
+fi

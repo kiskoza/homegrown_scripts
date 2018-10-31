@@ -1,0 +1,17 @@
+[push]
+        default = simple
+[core]
+        autocrlf = input
+        excludesfile = ~/.gitignore
+[format]
+        pretty = medium
+[status]
+        showUntrackedFiles = all
+
+[init]
+        templatedir = ~/.git-templates
+[user]
+[alias]
+        cleanup = !git branch --merged > /tmp/merged-branches && nano /tmp/merged-branches && xargs git branch -d < /tmp/merged-branches && rm /tmp/merged-branches
+        deploy-master = push heroku-master HEAD:master
+        deploy-staging = push heroku-staging HEAD:master
