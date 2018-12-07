@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ -f .rubocop.yml ] && \
-   [ ! $(git ls-files -m | wc -l) = 0 ] && \
-   ! ( git ls-files -m | xargs bundle exec rubocop -RED )
+   [ ! $(git diff --name-only --cached | wc -l) = 0 ] && \
+   ! ( git diff --name-only --cached | xargs bundle exec rubocop -RED )
 then
   cat <<MSG
 
@@ -14,8 +14,8 @@ MSG
 fi
 
 if [ -f .haml-lint.yml ] && \
-   [ ! $(git ls-files ./app -m | grep .haml | wc -l) = 0 ] && \
-   ! ( git ls-files ./app -m | grep .haml | xargs bundle exec haml-lint )
+   [ ! $(git diff --name-only --cached ./app | grep .haml | wc -l) = 0 ] && \
+   ! ( git diff --name-only --cached ./app | grep .haml | xargs bundle exec haml-lint )
 then
   cat <<MSG
 
@@ -27,11 +27,23 @@ MSG
 fi
 
 if [ -f .scss-lint.yml ] && \
-   [ ! $(git ls-files ./app -m | grep .scss | wc -l) = 0 ] && \
-   ! ( git ls-files ./app -m | grep .scss | xargs bundle exec scss-lint )
+   [ ! $(git diff --name-only --cached ./app | grep .scss | wc -l) = 0 ] && \
+   ! ( git diff --name-only --cached ./app | grep .scss | xargs bundle exec scss-lint )
 then
   cat <<MSG
 SCSS-lint offences were found, the commit was aborted.
+If you really want to commit anyway run:
+  git commit --no-verify
+MSG
+  exit 1
+fi
+
+if [ -f .eslintrc.yml ] && \
+   [ ! $(git diff --name-only --cached | grep .js | wc -l) = 0 ] && \
+   ! ( git diff --name-only --cached | grep .js | xargs yarn run eslint )
+then
+  cat <<MSG
+ESLint offences were found, the commit was aborted.
 If you really want to commit anyway run:
   git commit --no-verify
 MSG
