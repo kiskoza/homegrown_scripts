@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ -f .rubocop.yml ] && \
-   [ ! $(git diff --name-only --cached | wc -l) = 0 ] && \
-   ! ( git diff --name-only --cached | xargs bundle exec rubocop -RED )
+   [ ! $(git diff --name-only --cached --diff-filter=ABCMRTUX | wc -l) = 0 ] && \
+   ! ( git diff --name-only --cached --diff-filter=ABCMRTUX | xargs bundle exec rubocop -RED )
 then
   cat <<MSG
 
@@ -14,8 +14,8 @@ MSG
 fi
 
 if [ -f .haml-lint.yml ] && \
-   [ ! $(git diff --name-only --cached | grep .haml$ | wc -l) = 0 ] && \
-   ! ( git diff --name-only --cached | grep .haml$ | xargs bundle exec haml-lint )
+   [ ! $(git diff --name-only --cached --diff-filter=ABCMRTUX | grep .haml$ | wc -l) = 0 ] && \
+   ! ( git diff --name-only --cached --diff-filter=ABCMRTUX | grep .haml$ | xargs bundle exec haml-lint )
 then
   cat <<MSG
 
@@ -27,8 +27,8 @@ MSG
 fi
 
 if [ -f .scss-lint.yml ] && \
-   [ ! $(git diff --name-only --cached | grep .scss$ | wc -l) = 0 ] && \
-   ! ( git diff --name-only --cached | grep .scss$ | xargs bundle exec scss-lint )
+   [ ! $(git diff --name-only --cached --diff-filter=ABCMRTUX | grep .scss$ | wc -l) = 0 ] && \
+   ! ( git diff --name-only --cached --diff-filter=ABCMRTUX | grep .scss$ | xargs bundle exec scss-lint )
 then
   cat <<MSG
 SCSS-lint offences were found, the commit was aborted.
@@ -39,8 +39,8 @@ MSG
 fi
 
 if [ -f .eslintrc.yml ] && \
-   [ ! $(git diff --name-only --cached | grep .js$ | wc -l) = 0 ] && \
-   ! ( git diff --name-only --cached | grep .js$ | xargs yarn run eslint )
+   [ ! $(git diff --name-only --cached --diff-filter=ABCMRTUX | grep .js$ | wc -l) = 0 ] && \
+   ! ( git diff --name-only --cached --diff-filter=ABCMRTUX | grep .js$ | xargs yarn run eslint )
 then
   cat <<MSG
 ESLint offences were found, the commit was aborted.
