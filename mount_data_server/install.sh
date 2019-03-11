@@ -3,7 +3,7 @@
 cd "$(dirname "$0")"
 
 d_interface=wlp1s0
-d_ip=192.168.0.99
+d_ip=192.168.42.99
 d_mac=b8:69:f4:2f:b1:f7
 d_remote_f=/home/odin/data/downloads/Koza
 d_local_f=/home/kozaroczy/odin
@@ -42,7 +42,7 @@ cat <<EOF > build/mount_torrent_server
 
 if [ "\$IFACE" = $interface ] && \\
    [ "\$ADDRFAM" = inet ] && \\
-   [ \$(ip neigh | grep 192.168.0.1 | awk '{ print \$5 }') = $mac ]
+   [ \$(ip neigh | grep 192.168.42.1 | awk '{ print \$5 }') = $mac ]
 then
   mount $ip:$remote_f $local_f
 fi
