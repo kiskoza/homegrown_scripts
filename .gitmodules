@@ -1,0 +1,3 @@
+[submodule "slack_patch/xseticon"]
+	path = slack_patch/xseticon
+	url = git@github.com:xeyownt/xseticon.git
