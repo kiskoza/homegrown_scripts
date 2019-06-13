@@ -4,8 +4,11 @@
 
 ICON=/usr/lib/slack/resources/app.asar.unpacked/src/static/slack.png
 
-# Give slack enough time to launch before attempting to modify it
-sleep 10
+# Wait slack to launch before attempting to modify it
+until [ ! $(wmctrl -l | grep "Slack - " | cut -f1 -d' ' | xargs | grep -v "^$" | wc -l) = 0 ]
+do
+  sleep 2
+done
 
 # Find slack window(s) by name.
 # You need to handle multiple windows here to actually get multiple workspaces working w/icons
