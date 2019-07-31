@@ -19,6 +19,7 @@ fi
 
 # Copy the script to it's final place
 sudo cp slack.sh /usr/local/bin/slack.sh
+sudo cp icon.png /usr/local/bin/slack.png
 
 # Change the desktop file to use the new script
 sudo sed -i '/Exec=/c\Exec=/usr/local/bin/slack.sh' /usr/share/applications/slack.desktop
