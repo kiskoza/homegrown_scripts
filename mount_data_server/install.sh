@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 d_interface=wlp1s0
 d_ip=192.168.42.99
 d_mac=b8:69:f4:2f:b1:f7
-d_remote_f=/home/odin/data/downloads/Koza
+d_remote_f=/mnt/yoda/qbittorrent/downloads
 d_local_f=/home/kozaroczy/odin
 
 read -p "Want to change defaults? (yN): " need_to_change
